@@ -1,9 +1,16 @@
 <div class="row mb-3">  
- <% @results.each do |result| %>   
-<ul class="list-group col-6">
- 	<% result.each do |key, value| %>   
-  <li class="list-group-item"><%= key %> : <%= value %> </li>
- 	<% end %> 
- </ul> 
- <% end %> 
-</div>
+	<% @results.each do |result| %>   
+	<div class="col-md-6  animated slideInUp ">
+		<div class="card card-outline-secondary my-1 shadow">
+			<div class="card-header">
+				Claim No:  
+			</div>
+			<div class="card-body"> 	
+				<% result.each do |key, value| %>   
+					<p><%= key %> : <%= value %> </p>
+				<% end %> 
+			</div> 
+		</div>
+	</div>
+	<% end %> 
+</div>	

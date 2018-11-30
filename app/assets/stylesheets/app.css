@@ -1,5 +1,5 @@
-body{
-	margin-top: 105px;
+.main-container{
+	margin-top: 120px;
 }
 .form-control.error{
 	border: 1px solid #FF1F27;
@@ -11,6 +11,9 @@ body{
 .card-header{
 	color: #007ac3 !important;
     font-weight: bold;
+}
+.card-body p{
+    margin-bottom: 0.3rem;
 }
 .btn{
 	border-radius: inherit;
