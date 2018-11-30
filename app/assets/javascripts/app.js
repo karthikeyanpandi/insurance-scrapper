@@ -34,26 +34,8 @@ $(document).ready(function() {
     },2500);
 
     $("#searchclaim").submit(function(event){
-    event.preventDefault(); //prevent default action 
-    if ($("#searchclaim").valid()) {
+        event.preventDefault(); //prevent default action 
         showLoader();
-        var post_url = $(this).attr("action"); //get form action url
-        var request_method = $(this).attr("method"); //get form GET/POST method
-        var form_data = $(this).serialize(); //Encode form elements for submission
-        console.log(post_url);
-        $.ajax({
-        url : post_url,
-        type: request_method,
-        data : form_data,
-      
-         success: function(){
-            hideLoader();
-          },
-          error: function(){
-            hideLoader();
-          }
-        });
-    }
     });
 
 } );
