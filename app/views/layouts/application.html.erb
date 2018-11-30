@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Illinicare</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700" rel="stylesheet">
+     <%#= stylesheet_link_tag '/assets/plugins/bootstrap/css/bootstrap.min.css' %> 
+     <%#= stylesheet_link_tag '/assets/plugins/datatable/css/dataTables.bootstrap4.min.css' %>
+     <%#= stylesheet_link_tag '/assets/css/app.css' %> 
+
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <%#= javascript_include_tag '/assets/js/jquery-3.3.1.js'%>
+    <%#= javascript_include_tag '/assets/plugins/bootstrap/js/bootstrap.min.js'%>
+    <%#= javascript_include_tag '/assets/plugins/datatable/js/jquery.dataTables.min.js'%>
+    <%#= javascript_include_tag '/assets/plugins/datatable/js/dataTables.bootstrap4.min.js'%>
+    <%#= javascript_include_tag '/assets/js/jquery.validation.js'%>
+    <%#= javascript_include_tag '/assets/js/app.js'%>
+
+  </head>
+
+  <body> 
+    <%= render "layouts/navbar" %> 
+    <div class="preloader">
+    <div id="loader">
+        <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="lading"></div>
+    </div>
+  </div>
+    <div class="container">  
+      <%= yield %> 
+    </div>
+  </body>
+</html>

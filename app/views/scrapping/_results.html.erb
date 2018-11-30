@@ -1,0 +1,9 @@
+<div class="row mb-3">  
+ <% @results.each do |result| %>   
+<ul class="list-group col-6">
+ 	<% result.each do |key, value| %>   
+  <li class="list-group-item"><%= key %> : <%= value %> </li>
+ 	<% end %> 
+ </ul> 
+ <% end %> 
+</div>
