@@ -2,9 +2,9 @@ require 'selenium-webdriver'
 require "watir-webdriver"
 
 class ScrapperService
-  def initialize()
-    @signIn={ email: "ralkhatib@mbosinc.com", password: "Letmein2" }
-    @filterForm={ from_date: "11/10/2017", end_date: "11/12/2017", member_id: "210022554" }
+  def initialize(params)
+    @signIn={ email: params[:username], password: params[:password] }
+    @filterForm={ from_date: params[:from_date], end_date: params[:from_date], member_id: params[:memberid] }
     @browser = Watir::Browser.new
   end
 
