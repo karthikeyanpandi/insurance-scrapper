@@ -23,9 +23,7 @@ class ScrapperService
     @browser.text_field(:id, "username").set @signIn[:email]
     @browser.text_field(:id, "password").set @signIn[:password]
     @browser.button(:type,"submit").click
-    result =[]
     data = main_page?
-    result << data
   end
 
   def close_browser?

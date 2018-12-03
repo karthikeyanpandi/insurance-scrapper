@@ -1,4 +1,4 @@
-<% if @results[0][0][:msg].present? %>
+<% if @results[0][:msg].present? %>
 $("#msg").text("<%=@results[0][:msg]%>")
 <%else%>
 $('#results').html("<%= escape_javascript (render partial: 'results') %>");
