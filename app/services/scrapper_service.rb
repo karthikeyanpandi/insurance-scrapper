@@ -3,8 +3,18 @@ require "watir-webdriver"
 
 class ScrapperService
   def initialize(params)
-    @signIn={ email: params[:username], password: params[:password] }
-    @filterForm={ from_date: params[:from_date], end_date: params[:from_date], member_id: params[:memberid] }
+    @signIn={
+        email: "ralkhatib@mbosinc.com",
+        password: "Letmein2"
+    }
+
+    @filterForm={
+        from_date: "11/10/2017",
+        end_date: "11/12/2017",
+        member_id: "210022554"
+    }
+    #@signIn={ email: params[:username], password: params[:password] }
+    #@filterForm={ from_date: params[:from_date], end_date: params[:from_date], member_id: params[:memberid] }
     @browser = Watir::Browser.new
   end
 
@@ -18,42 +28,54 @@ class ScrapperService
     result << data
   end
 
+  def close_browser?
+    @browser.close
+  end
+
+  def login_page?
+    @browser.a(:class,"claims").present?
+  end
+
 
   def main_page?
-    @browser.a(:class,"claims").click
-    @browser.button(:id, "filter-button").click
-    @browser.execute_script('$("#dosFrom").val("11/10/2017")')
-    @browser.execute_script('$("#dosTo").val("11/12/2017")')
-    @browser.text_field(:id, "memberMedicaidId").set @filterForm[:member_id]
-    @browser.form(:id,'claimStatusModel').submit
-    urls = []
-    row = @browser.table.tbody.trs.find do |tr|
-      urls << tr.a.href
+    if login_page? != true
+      close_browser?
+      errors = {}
+      data = errors.merge(msg:"Invalid username or password")
+    else
+      @browser.a(:class,"claims").click
+      @browser.button(:id, "filter-button").click
+      @browser.execute_script('$("#dosFrom").val("11/10/2017")')
+      @browser.execute_script('$("#dosTo").val("11/12/2017")')
+      @browser.text_field(:id, "memberMedicaidId").set @filterForm[:member_id]
+      @browser.form(:id,'claimStatusModel').submit
+      urls = []
+      @browser.table.tbody.trs.each do |tr|
+        claim_url = {"#{tr.a.text}": "#{tr.a.href}"}
+        urls << claim_url
+      end
+      data  = fetch_table_data(urls)
     end
-
-    data  = fetch_table_data(urls)
   end
 
   def fetch_table_data(urls)
-    urls.each do |u|
-      @browser.goto u
-    end
-    fetch_final_result
-  end
-
-  def fetch_final_result
-    class_name = ["size1of2", "size2of2"]
     key_value_data = []
-    class_name.each do |name|
-      data = @browser.div(:class,"#{name}").text
-      split_data = data.split("\n")
-      split_data.each do |s|
-        key_value_data << s.split(":")
+    final_key_value = []
+    urls.each do |url|
+      @browser.goto url.values.first
+      class_name = ["size1of2", "size2of2"]
+      class_name.each do |name|
+        data = @browser.div(:class,"#{name}").text
+        split_data = data.split("\n")
+        split_data.each do |s|
+          key_value_data << s.split(":")
+        end
       end
+      final_data = key_value_data.to_h
+      final_key_value.push({"#{url.keys.first}"=> final_data })
     end
-    final_data = key_value_data.to_h
-    @browser.close
-    final_data
+    close_browser?
+    final_key_value
   end
 
 end

@@ -15,7 +15,7 @@ $(document).ready(function() {
      rules:{
      	membername: { 
 	        minlength: 5,
-	        maxlength: 100, 
+	        maxlength: 100
      	},
      	accountno: { 
 	        minlength: 5,
@@ -27,15 +27,15 @@ $(document).ready(function() {
 	        minlength: 5,
 	        maxlength: 20, 
 	        number: true
-     	},
+     	}
     }
 	});setTimeout(function(){
         hideLoader();
     },2500);
 
-    $("#searchclaim").submit(function(event){
-        event.preventDefault(); //prevent default action 
-        showLoader();
-    });
+//    $("#searchclaim").submit(function(event){
+//        event.preventDefault(); //prevent default action
+//        showLoader();
+//    });
 
 } );

@@ -1,16 +1,19 @@
-<div class="row mb-3">  
-	<% @results.each do |result| %>   
-	<div class="col-md-6  animated slideInUp ">
-		<div class="card card-outline-secondary my-1 shadow">
-			<div class="card-header">
-				Claim No:  
-			</div>
-			<div class="card-body"> 	
-				<% result.each do |key, value| %>   
-					<p><%= key %> : <%= value %> </p>
-				<% end %> 
-			</div> 
-		</div>
-	</div>
-	<% end %> 
-</div>	
+<div class="row mb-3">
+    <%if @results.present? %>
+      <%=@results%>
+      <% @results.each do |result| %>
+          <div class="col-md-6  animated slideInUp ">
+            <div class="card card-outline-secondary my-1 shadow">
+              <div class="card-header">
+                Claim No:
+              </div>
+              <div class="card-body">
+                <% result.each do |key, value| %>
+                    <p><%= key %> : <%= value %> </p>
+                <% end %>
+              </div>
+            </div>
+          </div>
+      <% end %>
+<%end%>
+</div>
