@@ -82,13 +82,14 @@ class ScrapperService
       end
       p "urlssssssssssss"
       p urls
-      data  = fetch_table_data(urls)
+      final_data, export_final_data  = fetch_table_data(urls)
     end
   end
 
   def fetch_table_data(urls)
     key_value_data = []
     final_key_value = []
+    export_final_data = []
     urls.each do |url|
       @browser.goto url.values.first
       class_name = ["size1of2", "size2of2"]
@@ -100,10 +101,23 @@ class ScrapperService
         end
       end
       final_data = key_value_data.to_h
-      final_key_value.push({"#{url.keys.first}"=> final_data })
+      export_final_data << final_data
+      final_key_value.push({"#{url.keys.first}": final_data })
     end
     close_browser?
-    final_key_value
+    return final_key_value, export_final_data
+  end
+
+  def export_csv_file(export_data)
+    hashes = export_data
+    column_names = hashes.first.keys
+    s=CSV.generate do |csv|
+      csv << column_names
+      hashes.each do |x|
+        csv << x.values
+      end
+    end
+    File.write('/home/sys-user/Desktop/export_data.csv', s)
   end
 
 end
