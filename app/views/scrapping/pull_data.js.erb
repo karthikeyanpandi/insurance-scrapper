@@ -1,5 +1,7 @@
-<% if @results[0][:msg].present? %>
-$("#msg").text("<%=@results[0][:msg]%>")
+$(".preloader").hide();
+<% if @results.class == Hash %>
+$("#msg").text("<%=@results[:msg]%>")
 <%else%>
+$("#msg").hide()
 $('#results').html("<%= escape_javascript (render partial: 'results') %>");
 <%end%>

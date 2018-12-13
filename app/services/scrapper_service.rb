@@ -1,21 +1,29 @@
 require 'selenium-webdriver'
 require "watir-webdriver"
+require "date"
+require 'csv'
+require 'iconv'
+
 
 class ScrapperService
   def initialize(params)
-    @signIn={
-        email: "ralkhatib@mbosinc.com",
-        password: "Letmein2"
-    }
-
-    @filterForm={
-        from_date: "11/10/2017",
-        end_date: "11/12/2017",
-        member_id: "210022554"
-    }
-    #@signIn={ email: params[:username], password: params[:password] }
-    #@filterForm={ from_date: params[:from_date], end_date: params[:from_date], member_id: params[:memberid] }
+    @filterFormdata = []
+    if params[:file].present?
+      csv = File.read(params[:file].path)
+      CSV.parse(csv, headers: true).each do |row|
+        @filterFormdata << {fromdate: row['fromdate'].strip, todate: row['todate'].strip, memberid: row['memberid'].strip}
+        params.merge!(username: row['username'], password: row['password']) if row['username'].present?
+      end
+    else
+      from_date_parse = Date.strptime("#{params[:fromdate].join('- ')}", '%Y-%m-%d')
+      start_date = from_date_parse.strftime('%d/%m/%Y')
+      end_date_parse = Date.strptime("#{params[:todate].join('- ')}", '%Y-%m-%d')
+      to_date = end_date_parse.strftime('%d/%m/%Y')
+    end
+    @signIn={ email: params[:username], password: params[:password] }
+    #@filterForm={ from_date: start_date, end_date: to_date, member_id: params[:memberid] }
     @browser = Watir::Browser.new
+
   end
 
   def fetch_data
@@ -42,16 +50,38 @@ class ScrapperService
       data = errors.merge(msg:"Invalid username or password")
     else
       @browser.a(:class,"claims").click
-      @browser.button(:id, "filter-button").click
-      @browser.execute_script('$("#dosFrom").val("11/10/2017")')
-      @browser.execute_script('$("#dosTo").val("11/12/2017")')
-      @browser.text_field(:id, "memberMedicaidId").set @filterForm[:member_id]
-      @browser.form(:id,'claimStatusModel').submit
+
+
+      p "@filterFormdata@filterFormdata@filterFormdata@filterFormdata@filterFormdata"
+
+      p @filterFormdata
       urls = []
-      @browser.table.tbody.trs.each do |tr|
-        claim_url = {"#{tr.a.text}": "#{tr.a.href}"}
-        urls << claim_url
+
+      @filterFormdata.each do |filter|
+        p "filterrrrrrrr"
+        p filter[:fromdate]
+        @browser.button(:id, "filter-button").click
+        @browser.execute_script("document.getElementById('dosFrom').value=#{filter[:fromdate]}")
+        @browser.execute_script("document.getElementById('dosTo').value=#{filter[:todate]}")
+        from_date = "$('#dosFrom').val('#{filter[:fromdate]}')"
+        end_date = "$('#dosTo').val('#{filter[:todate]}')"
+
+        @browser.execute_script(from_date)
+        #@browser.execute_script('$("#dosFrom").val()', filter[:fromdate])
+        #@browser.execute_script('$("#dosFrom").val("11/10/2017")')
+        @browser.execute_script(end_date)
+        #@browser.execute_script('$("#dosTo").val("11/12/2017")')
+        @browser.text_field(:id, "memberMedicaidId").set filter[:memberid]
+        @browser.form(:id,'claimStatusModel').submit
+        if @browser.table.tbody.present?
+          @browser.table.tbody.trs.each do |tr|
+            claim_url = {"#{tr.a.text}": "#{tr.a.href}"}
+            urls << claim_url
+          end
+        end
       end
+      p "urlssssssssssss"
+      p urls
       data  = fetch_table_data(urls)
     end
   end

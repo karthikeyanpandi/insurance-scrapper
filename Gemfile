@@ -37,7 +37,9 @@ gem 'jbuilder', '~> 2.5'
 gem "watir", "~> 6.6"
 
 gem 'phantomjs'
+gem 'roo'
 
+gem 'iconv'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false

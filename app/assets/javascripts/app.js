@@ -33,9 +33,15 @@ $(document).ready(function() {
         hideLoader();
     },2500);
 
-//    $("#searchclaim").submit(function(event){
-//        event.preventDefault(); //prevent default action
-//        showLoader();
-//    });
+    $("#searchclaim").submit(function(event){
+        if($("#searchclaim").valid()){
+            event.preventDefault(); //prevent default action
+            showLoader();
+        }
+    });
+
+    $("#upload_form").submit(function(event){
+        showLoader();
+    });
 
 } );

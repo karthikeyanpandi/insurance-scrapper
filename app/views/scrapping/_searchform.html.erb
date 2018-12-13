@@ -53,26 +53,28 @@
     </div>
   </div>
 
-  <div class="col-md-5  my-4">
+  <%= render "file_upload_form" %>
 
-    <div class="card card-outline-secondary shadow-sm">
-      <div class="card-header">
-        Upload Users
-      </div>
+  <!--<div class="col-md-5  my-4">-->
 
-      <div class="card-body clearfix">
-        <div class="custom-file">
-          <%= file_field_tag(:usersfile,:class=>'custom-file-input')%>
-          <%= label_tag(:q, "Choose file:", :class=>'custom-file-label', :for=>'usersfile') %>
-        </div>
-      </div>
+    <!--<div class="card card-outline-secondary shadow-sm">-->
+      <!--<div class="card-header">-->
+        <!--Upload Users-->
+      <!--</div>-->
 
-      <div class="card-footer">
-        <div class="float-right">
-          <%= submit_tag("Reset", { :name => 'reset', :id => 'reset', :type => 'reset', :class => 'btn btn-secondary'}) %>
-          <%= submit_tag("Upload", :class=>'btn btn-primary') %>
-        </div>
-      </div>
-    </div>
-  </div>
+      <!--<div class="card-body clearfix">-->
+        <!--<div class="custom-file">-->
+          <!--<%#= file_field_tag(:usersfile,:class=>'custom-file-input')%>-->
+          <!--<%#= label_tag(:q, "Choose file:", :class=>'custom-file-label', :for=>'usersfile') %>-->
+        <!--</div>-->
+      <!--</div>-->
+
+      <!--<div class="card-footer">-->
+        <!--<div class="float-right">-->
+          <!--<%#= submit_tag("Reset", { :name => 'reset', :id => 'reset', :type => 'reset', :class => 'btn btn-secondary'}) %>-->
+          <!--<%#= submit_tag("Upload", :class=>'btn btn-primary') %>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
 </div>
