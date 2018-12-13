@@ -4,4 +4,12 @@ $("#msg").text("<%=@results[:msg]%>")
 <%else%>
 $("#msg").hide()
 $('#results').html("<%= escape_javascript (render partial: 'results') %>");
+
+$('#table_records').DataTable( {
+    dom: 'Bfrtip',
+    buttons: [
+        'csv'
+    ],
+    responsive: true
+} );
 <%end%>

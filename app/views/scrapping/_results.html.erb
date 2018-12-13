@@ -1,20 +1,38 @@
 <div class="row mb-3">
-    <%if @results.present? %>
-      <% @results.each do |key, value| %>
-          <% key.each do |k,value1| %>
-              <div class="col-md-6  animated slideInUp ">
-                <div class="card card-outline-secondary my-1 shadow">
-                  <div class="card-header">
-                    Claim No: <%=k%>
-                  </div>
-                  <div class="card-body">
+  <%if @results.present? %>
+      <div class="col-md-12 animated slideInUp ">
+        <table id="table_records" class="display  dt-responsive responsive table-responsive table-bordered" style="width:100%">
+          <thead>
+          <tr>
+            <th>Claim No</th>
+            <th>Ref/Acct No</th>
+            <th>Member ID</th>
+            <th>Member Name</th>
+            <th>Member DOB</th>
+            <th>Servicing Provider</th>
+            <th>Servicing NPI</th>
+            <th>DOS Range</th>
+            <th>Received Date</th>
+            <th>Billed Amount</th>
+            <th>Payment Amount</th>
+            <th>Payment Date</th>
+            <th>Status</th>
+          </tr>
+          </thead>
+          <tbody>
+
+          <% @results.each do |key, value| %>
+              <% key.each do |k,value1| %>
+                  <tr>
+                    <td><%=k%></td>
                     <% value1.each do |k1, v| %>
-                        <p><%= k1 %> : <%= v %> </p>
+                        <td><%= v %> </td>
                     <% end %>
-                  </div>
-                </div>
-              </div>
-          <% end%>
-      <% end %>
-    <%end%>
-</div>
+                  </tr>
+              <% end%>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+      </div>
+  <% end%>

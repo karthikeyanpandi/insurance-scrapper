@@ -17,6 +17,14 @@
 //= require bootstrap/bootstrap.min.js
 //= require datatable/jquery.dataTables.min.js
 //= require datatable/dataTables.bootstrap4.min.js
+//= require datatable/dataTables.buttons.min.js
+//= require datatable/buttons.bootstrap.js
+//= require datatable/buttons.flash.min.js
+//= require datatable/jszip.min.js
+//= require datatable/pdfmake.min.js
+//= require datatable/vfs_fonts.js
+//= require datatable/buttons.html5.min.js
+//= require datatable/buttons.print.min.js
 //= require jquery.validation.js
 // require_tree .
 //= require app.js

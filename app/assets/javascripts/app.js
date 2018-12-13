@@ -10,7 +10,7 @@ $(document).ready(function() {
     setTimeout(function(){
         hideLoader();
     },2500);
-    $('#example').DataTable();
+
     $("#searchclaim").validate({
      rules:{
      	membername: { 

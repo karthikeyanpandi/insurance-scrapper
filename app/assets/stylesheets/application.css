@@ -12,6 +12,7 @@
  *
  *= require bootstrap/bootstrap.min.css
  *= require datatable/dataTables.bootstrap4.min.css
+ *= require datatable/dataTables.buttons.min.css
  *= require animate.css
  *= require app.css
  * require_tree .
